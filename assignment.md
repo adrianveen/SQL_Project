@@ -30,12 +30,13 @@ The answer to the question
 ## Part 4: Starting with Data
 
 Consider the data you have available to you.  You can use the data to:
-    - find all duplicate records
-    - find the total number of unique visitors (`fullVisitorID`)
-    - find the total number of unique visitors by referring sites
-    - find each unique product viewed by each visitor
-    - compute the percentage of visitors to the site that actually makes a purchase
-    
+<ul>
+    <li>- find all duplicate records</li>
+    <li>- find the total number of unique visitors (`fullVisitorID`)</li>
+    <li>- find the total number of unique visitors by referring sites</li>
+    <li>- find each unique product viewed by each visitor</li>
+    <li>- compute the percentage of visitors to the site that actually makes a purchase</li>
+<ul>   
 
 In the **starting_with_data.md** file, write 3 - 5 new questions that you could answer with this database. For each question, include
 The queries you used to answer the question
