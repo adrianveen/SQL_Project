@@ -32,7 +32,7 @@ The answer to the question
 Consider the data you have available to you.  You can use the data to:
 <ul>
 <li>find all duplicate records</li>
-<li>find the total number of unique visitors `fullVisitorID`</li>
+<li>find the total number of unique visitors (`\`fullVisitorID\``)</li>
 <li>find the total number of unique visitors by referring sites</li>
 <li>find each unique product viewed by each visitor</li>
 <li>compute the percentage of visitors to the site that actually makes a purchase</li>
