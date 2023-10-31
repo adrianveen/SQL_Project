@@ -110,7 +110,7 @@ HAVING
 ORDER BY cat_count DESC;
 ```
 There are 86 instances of cities having product orders for Men's goods in the 4th quartile of all orders. That is 86 out of 372 different numbers-of-categories ordered, or 23% of the 4th quartile is for orders regarding Men's goods. See query below. 
-```spl
+```sql
 WITH quartiles_cte AS (
   SELECT
     country,
@@ -135,6 +135,7 @@ WHERE product_category LIKE '%Men%' AND quartile = 4
 ORDER BY quartile DESC;
 ```
 Answer: 
+
 In conclusion, there appears to be a pattern of high levels of orders for Men's goods/clothing amongst a wide range of cities. 
 
 
