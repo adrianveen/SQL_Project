@@ -15,7 +15,7 @@ GROUP BY country, city
 HAVING SUM(totaltransactionrevenue) IS NOT NULL --AND SUM(totaltransactionrevenue) > 0
 ORDER BY total_revenue DESC
 ```
-
+The above output can be shortened by uncommenting the "AND SUM()" statement in the `HAVING` clause, but is not necessary to answer this particular question.  
 
 Answer: Top 5 Cities and countries:
 
