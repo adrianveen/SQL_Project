@@ -45,6 +45,7 @@ ORDER BY average_quant DESC
 ;
 ```
 Answer:
+
 See table below. Note the relatively high average for the number of products ordered in Sunnyvale, CA. This is likely due to how the "Number of Products Ordered" was calculated. There is a transaction record of $649.24, for a $1.40 per unit Lip Balm. This would imply that approximately 465 lip balms were ordered. This is reflected in the average which is sensitive to extreme values. 
 | Country          | City           | Count |
 |------------------|----------------|-------|
