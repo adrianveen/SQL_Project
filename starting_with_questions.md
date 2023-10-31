@@ -45,25 +45,28 @@ ORDER BY average_quant DESC
 ;
 ```
 Answer:
-- United States"	"Sunnyvale"	117
-- United States"	"Atlanta"	36
-- United States"	"Chicago"	17
-- Israel"		"Tel Aviv-Yafo"	8
-- United States"	"Austin"	6
-- United States"	"Los Angeles"	5
-- United States"	"San Bruno"	5
-- United States"	"San Francisco"	4
-- United States"	"New York"	4
-- Canada"		"Toronto"	4
-- Australia"		"Sydney"	3
-- United States"	"Seattle"	3
-- United States"	"Houston"	2
-- United States"	"Palo Alto"	2
-- United States"	"San Jose"	2
-- Switzerland"		"Zurich"	1
-- United States"	"Mountain View"	1
-- United States"	"Nashville"	1
-- United States"	"Columbus"	1
+| Country          | City           | Count |
+|------------------|----------------|-------|
+| United States    | Sunnyvale      | 117   |
+| United States    | Atlanta        | 36    |
+| United States    | Chicago        | 17    |
+| Israel           | Tel Aviv-Yafo  | 8     |
+| United States    | Austin         | 6     |
+| United States    | Los Angeles    | 5     |
+| United States    | San Bruno      | 5     |
+| United States    | San Francisco  | 4     |
+| United States    | New York       | 4     |
+| Canada           | Toronto        | 4     |
+| Australia        | Sydney         | 3     |
+| United States    | Seattle        | 3     |
+| United States    | Houston        | 2     |
+| United States    | Palo Alto      | 2     |
+| United States    | San Jose       | 2     |
+| Switzerland      | Zurich         | 1     |
+| United States    | Mountain View  | 1     |
+| United States    | Nashville      | 1     |
+| United States    | Columbus       | 1     |
+
 
 
 
