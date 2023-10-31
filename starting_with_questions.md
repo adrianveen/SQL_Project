@@ -9,11 +9,12 @@ SQL Queries:
 SELECT
 	country,
 	city,
-	ROUND(SUM(totaltransactionrevenue)::NUMERIC/1000000, 2) AS total_revenue
-FROM all_sessions_raw
+	SUM(totaltransactionrevenue) AS total_revenue
+FROM all_sessions_clean
 GROUP BY country, city
-HAVING SUM(totaltransactionrevenue) IS NOT NULL --AND SUM(totaltransactionrevenue) > 0
+HAVING SUM(totaltransactionrevenue) IS NOT NULL AND city IS NOT NULL
 ORDER BY total_revenue DESC
+;
 ```
 The above output can be shortened by uncommenting the ```AND SUM()``` statement in the ```HAVING``` clause, but is not necessary to answer this particular question.  
 
@@ -32,11 +33,37 @@ The (Country, City) pair with the highest total revenue was the United States bu
 
 
 SQL Queries:
-
-
-
+```sql
+SELECT
+	country,
+	city,
+	ROUND(AVG(totaltransactionrevenue/productprice), 0) AS average_quant
+FROM all_sessions_clean 
+WHERE totaltransactionrevenue IS NOT NULL AND productprice IS NOT NULL AND city IS NOT NULL
+GROUP BY country, city
+ORDER BY average_quant DESC
+;
+```
 Answer:
-
+- United States"	"Sunnyvale"	117
+- United States"	"Atlanta"	36
+- United States"	"Chicago"	17
+- Israel"	"Tel Aviv-Yafo"	8
+- United States"	"Austin"	6
+- United States"	"Los Angeles"	5
+- United States"	"San Bruno"	5
+- United States"	"San Francisco"	4
+- United States"	"New York"	4
+- Canada"	"Toronto"	4
+- Australia"	"Sydney"	3
+- United States"	"Seattle"	3
+- United States"	"Houston"	2
+- United States"	"Palo Alto"	2
+- United States"	"San Jose"	2
+- Switzerland"	"Zurich"	1
+- United States"	"Mountain View"	1
+- United States"	"Nashville"	1
+- United States"	"Columbus"	1
 
 
 
