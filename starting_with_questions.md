@@ -18,12 +18,14 @@ ORDER BY total_revenue DESC
 
 
 Answer: Top 5 Cities and countries:
-Unknown Cities in USA
-"United States"	"San Francisco"
-"United States"	"Sunnyvale"
-"United States"	"Atlanta"
-"United States"	"Palo Alto"
 
+-"United States"	"San Francisco"
+-"United States"	"Sunnyvale"
+-"United States"	"Atlanta"
+-"United States"	"Palo Alto"
+-"Israel"	"Tel Aviv-Yafo"
+
+The (Country, City) pair with the highest total revenue was the United States but with the city listed as "not available in demo dataset" and was therefore excluded, as it may be spread across many different cities. 
 
 
 **Question 2: What is the average number of products ordered from visitors in each city and country?**
