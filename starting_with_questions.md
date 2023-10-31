@@ -5,14 +5,16 @@ Answer the following questions and provide the SQL queries used to find the answ
 
 
 SQL Queries:
-```SELECT
+```sql
+SELECT
 	country,
 	city,
 	ROUND(SUM(totaltransactionrevenue)::NUMERIC/1000000, 2) AS total_revenue
 FROM all_sessions_raw
 GROUP BY country, city
 HAVING SUM(totaltransactionrevenue) IS NOT NULL --AND SUM(totaltransactionrevenue) > 0
-ORDER BY total_revenue DESC```
+ORDER BY total_revenue DESC
+```
 
 
 Answer: Top 5 Cities and countries:
