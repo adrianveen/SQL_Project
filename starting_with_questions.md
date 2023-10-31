@@ -19,11 +19,11 @@ ORDER BY total_revenue DESC
 
 Answer: Top 5 Cities and countries:
 
-- San Francisco, United States 
-- Sunnyvale, United States
-- Atlanta, United States
-- Palo Alto, United States
-- Tel Aviv-Yafo, Israel
+1. San Francisco, United States 
+2. Sunnyvale, United States
+3. Atlanta, United States
+4. Palo Alto, United States
+5. Tel Aviv-Yafo, Israel
 
 The (Country, City) pair with the highest total revenue was the United States but with the city listed as "not available in demo dataset" and was therefore excluded, as it may be spread across many different cities. 
 
