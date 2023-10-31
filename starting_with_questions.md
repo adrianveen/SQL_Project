@@ -76,10 +76,65 @@ See table below. Note the relatively high average for the number of products ord
 
 
 SQL Queries:
-
-
-
-Answer:
+```sql
+SELECT
+	country,
+	city,
+	product_category,
+	COUNT(product_category) AS cat_count
+FROM all_sessions_clean
+GROUP BY country, city, product_category
+HAVING 
+	city IS NOT NULL 
+	AND product_category IS NOT NULL 
+	AND COUNT(product_category) > 1 
+	AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
+ORDER BY cat_count DESC;
+```
+In the output of the above query, it is clear that Men's clothing, specifically Men's T-Shirts is a highly popular category. It is the most frequently ordered category in a single City.  The median for the number of different categories grouped by City and Country is 1. With that considered there are 136 (out of 744) cities with a Men's category ordered more than once. See query below:
+```sql
+SELECT
+	country,
+	city,
+	product_category,
+	COUNT(product_category) AS cat_count
+FROM all_sessions_clean
+GROUP BY country, city, product_category
+HAVING 
+	city IS NOT NULL 
+	AND product_category IS NOT NULL
+	AND COUNT(product_category) > 1
+	AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
+	AND product_category LIKE '%Men%'
+ORDER BY cat_count DESC;
+```
+There are 86 instances of cities having product orders for Men's goods in the 4th quartile of all orders. That is 86 out of 372 different numbers-of-categories ordered, or 23% of the 4th quartile is for orders regarding Men's goods. See query below. 
+```spl
+WITH quartiles_cte AS (
+  SELECT
+    country,
+    city,
+    product_category,
+    COUNT(product_category) AS cat_count,
+    NTILE(4) OVER (ORDER BY COUNT(product_category)) AS quartile
+  FROM all_sessions_clean
+  WHERE
+    city IS NOT NULL 
+    AND product_category IS NOT NULL
+    AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
+  GROUP BY country, city, product_category
+)
+SELECT
+  country,
+  city,
+  product_category,
+  quartile
+FROM quartiles_cte
+WHERE product_category LIKE '%Men%' AND quartile = 4
+ORDER BY quartile DESC;
+```
+Answer: 
+In conclusion, there appears to be a pattern of high levels of orders for Men's goods/clothing amongst a wide range of cities. 
 
 
 
