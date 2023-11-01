@@ -105,32 +105,30 @@ See table below. The top ten cities by average were included here as a sample. N
 
 SQL Queries:
 ```sql
-SELECT 
+WITH units_sold AS (
+SELECT DISTINCT fullvisitorid, SUM(units_sold) OVER (PARTITION BY fullvisitorid) AS sum_of_units
+FROM analytics_clean
+WHERE units_sold > 0
+ORDER BY fullvisitorid
+)
+SELECT
+	DISTINCT product_category,
 	country,
 	city,
-	product_category,
-	total_ordered
-FROM (
-    SELECT 
-        country,
-        city,
-        product_category,
-        SUM(total_ordered) AS total_ordered
-    FROM sales_by_sku_raw AS sbs
-    JOIN all_sessions_clean AS s
-        ON sbs.productsku = s.product_sku
-    WHERE city IS NOT NULL 
-		AND country IS NOT NULL
-		AND product_category IS NOT NULL
-		AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
-		AND total_ordered > 0
-    GROUP BY country, city, product_category
-) AS subquery
-ORDER BY country, city, total_ordered DESC;
+	sum_of_units
+FROM all_sessions_clean
+JOIN units_sold
+	USING (fullvisitorid)
+WHERE 
+	city IS NOT NULL
+	AND product_category IS NOT NULL
+	AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
+GROUP BY country, city, product_category, sum_of_units
+ORDER BY country, city, sum_of_units DESC
 ```
 Answer: 
 
-In the above query, only rows that have some quantity of orders are include. Some trends that can be seen pertain to the larger cities. Popular categories in these cities are often Office or Drinkware. One can imagine that a business hub like a large city may have high demand for office supplies. The drinkware may be explained by the larger concentration of restuarants in the city. As smaller cities have smaller total order counts, it is difficult to discern any patterns. 
+In the above query, rows where there is a visitor ID tied to an order are included. NULL citys, and product_categories are excluded. Also product categories that match a tech company name are excluded as they encompass a wide range of products. A pattern that can be seen is that the most popular item for most cities is often farm more popular than any other item. This could imply singular large orders were executed, which would skew the averages. 
 
 ### Question 4
 **What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
@@ -138,36 +136,38 @@ In the above query, only rows that have some quantity of orders are include. Som
 
 SQL Queries:
 ```sql
-WITH orders_ranked AS (
-		SELECT
-			s.country,
-			s.city,
-			s.product_name,
-			sk.total_ordered,
-			RANK () OVER (PARTITION BY city ORDER BY sk.total_ordered DESC) AS quantity_rank
-		FROM all_sessions_clean AS s
-		JOIN sales_by_sku_raw AS sk
-			ON s.product_sku = sk.productsku
-		WHERE city IS NOT NULL AND country IS NOT NULL
-		GROUP BY s.country, s.city, s.product_name, sk.total_ordered
-		ORDER BY s.country, s.city, quantity_rank
-	)
-	
+WITH units_sold AS (
+SELECT DISTINCT fullvisitorid, SUM(units_sold) OVER (PARTITION BY fullvisitorid) AS sum_of_units
+FROM analytics_clean
+WHERE units_sold > 0
+ORDER BY fullvisitorid
+)
+
+SELECT * FROM (
 SELECT
 	country,
 	city,
 	product_name,
-	total_ordered,
-	quantity_rank
-FROM orders_ranked
-WHERE quantity_rank = 1
-ORDER BY country,city,quantity_rank;
+	sum_of_units,
+	RANK() OVER (PARTITION BY city ORDER BY sum_of_units DESC) AS item_rank
+FROM all_sessions_clean
+JOIN units_sold
+	USING (fullvisitorid)
+WHERE 
+	city IS NOT NULL
+	AND product_category IS NOT NULL
+	AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
+GROUP BY country, city, product_name, sum_of_units
+ORDER BY country, city, sum_of_units DESC
+) AS ranked_date
+WHERE item_rank = 1
+;
 ```
 
 
 Answer:
 
-
+Just by visually inspecting the 25 ranked cities, there are no apparent patterns. The products and their categories seem to cover a variety of items and categories respectively. There Are some items which may warrant a further investigation as their total order count appears to be an extreme outlier. A more detailed analysis may yield different results. 
 
 
 
@@ -175,11 +175,53 @@ Answer:
 **Can we summarize the impact of revenue generated from each city/country?**
 
 SQL Queries:
+```sql
+WITH city_rev AS (
+SELECT
+	country,
+	city,
+	SUM(revenue) AS city_revenue
+FROM all_sessions_clean
+JOIN analytics_clean
+	USING (fullvisitorid)
+WHERE 
+	revenue > 0
+	AND city IS NOT NULL
+GROUP BY country, city
+ORDER BY city_revenue DESC, country, city
+)
 
+SELECT
+	country,
+	city,
+	ROUND((city_revenue/(SELECT SUM(city_revenue) FROM city_rev))*100, 2) AS prcnt_of_total_rev
+FROM city_rev;
+```
+Calculating average contribution
+```sql
+WITH city_rev AS (
+SELECT
+	country,
+	city,
+	SUM(revenue) AS city_revenue
+FROM all_sessions_clean
+JOIN analytics_clean
+	USING (fullvisitorid)
+WHERE 
+	revenue > 0
+	AND city IS NOT NULL
+GROUP BY country, city
+ORDER BY city_revenue DESC, country, city
+)
 
+SELECT
+	AVG(ROUND((city_revenue/(SELECT SUM(city_revenue) FROM city_rev))*100, 2))
+FROM city_rev
+```
 
 Answer:
 
+The above query lists the percent of the total revenue that each city is responsible for. The average contribution is 4% of the total revenue (see second query). From the first query, we see the maximum contribution is 31.65% and the minimum contribution is 0.06% of the total revenue. This set of percentages has a standard deviation of 6.7 and a variance of 45.5.
 
 
 
