@@ -1,4 +1,5 @@
 What issues will you address by cleaning the data?
+
 See comments in SQL code blocks for more details. In general, the following items were addressed:
 - extracting dates and times from integer or text values
 - correctly formatting dollar amounts
