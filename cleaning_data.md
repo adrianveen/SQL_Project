@@ -3,8 +3,8 @@ What issues will you address by cleaning the data?
 See comments in SQL code blocks for more details. In general, the following items were addressed:
 - extracting dates and times from integer or text values
 - correctly formatting dollar amounts
-- removing duplicate product or sku value, or unused sku values
-- cleaning up the product name and category name to remove additional characters or prefixes/additional words
+- removing duplicate product or sku values, or unused sku values
+- cleaning the product names and category names to remove additional characters or prefixes/additional words
 - dropping unused columns (ie. all NULL) or columns with insignificant values
 
 Queries:
