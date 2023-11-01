@@ -1,5 +1,12 @@
 Answer the following questions and provide the SQL queries used to find the answer.
 
+## Table of Contents
+
+- [Question 1](#question-1)
+- [Question 2](#question-2)
+- [Question 3](#question-3)
+- [Question 4](#question-4)
+- [Question 5](#question-5)
     
 ### Question 1
 **Which cities and countries have the highest level of transaction revenues on the site?**
