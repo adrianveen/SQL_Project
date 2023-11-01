@@ -7,7 +7,7 @@ See comments in SQL code blocks for more details. In general, the following item
 
 Queries:
 
-##Cleaning the Products table
+## Cleaning the Products table
 ```sql
 -- Products Table Clean up
 SELECT * FROM products_clean;
@@ -78,7 +78,7 @@ WHERE product_sku IN (SELECT product_sku FROM extra_products_cte)
 SELECT COUNT(DISTINCT product_sku) FROM products_clean
 ```
 
-##Cleaning the All Sessions Table
+## Cleaning the All Sessions Table
 ```sql
 -- All Sessions Clean-up
 SELECT * FROM all_sessions_clean
@@ -287,7 +287,7 @@ ALTER TABLE all_sessions_clean
 RENAME COLUMN productsku TO product_sku;
 ```
 
-##Cleaning the Analytics table
+## Cleaning the Analytics table
 ```sql
 -- Analytics Table Cleanup
 SELECT * FROM analytics_raw;
