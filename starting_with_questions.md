@@ -34,40 +34,58 @@ The (Country, City) pair with the highest total revenue was the United States bu
 
 SQL Queries:
 ```sql
+WITH average_by_id AS (SELECT 
+	country,
+	city,
+	fullvisitorid,
+	total_ordered,
+	AVG(total_ordered) OVER (PARTITION BY city) AS avg_num_orders
+FROM all_sessions_clean AS s
+FULL OUTER JOIN sales_by_sku_raw AS sk
+	ON s.product_sku = sk.productsku
+WHERE city IS NOT NULL
+	AND total_ordered > 0
+GROUP BY country, city, fullvisitorid, total_ordered
+ORDER BY country, city, fullvisitorid
+)
 SELECT
 	country,
 	city,
-	ROUND(AVG(totaltransactionrevenue/productprice), 0) AS average_quant
-FROM all_sessions_clean 
-WHERE totaltransactionrevenue IS NOT NULL AND productprice IS NOT NULL AND city IS NOT NULL
-GROUP BY country, city
-ORDER BY average_quant DESC
-;
+	avg_num_orders::INT
+FROM average_by_id
+GROUP BY country, city, avg_num_orders
+ORDER BY country, city
 ```
+
+Query to identify Brno Orders
+```sql
+SELECT
+	country,
+	city,
+	product_name,
+	total_ordered
+FROM all_sessions_clean AS s
+JOIN sales_by_sku_raw AS sk
+	ON sk.productsku = s.product_sku
+WHERE city = 'Brno';
+```
+
 Answer:
 
-See table below. Note the relatively high average for the number of products ordered in Sunnyvale, CA. This is likely due to how the "Number of Products Ordered" was calculated. There is a transaction record of $649.24, for a $1.40 per unit Lip Balm. This would imply that approximately 465 lip balms were ordered. This is reflected in the average which is sensitive to extreme values. 
-| Country          | City           | Count |
-|------------------|----------------|-------|
-| United States    | Sunnyvale      | 117   |
-| United States    | Atlanta        | 36    |
-| United States    | Chicago        | 17    |
-| Israel           | Tel Aviv-Yafo  | 8     |
-| United States    | Austin         | 6     |
-| United States    | Los Angeles    | 5     |
-| United States    | San Bruno      | 5     |
-| United States    | San Francisco  | 4     |
-| United States    | New York       | 4     |
-| Canada           | Toronto        | 4     |
-| Australia        | Sydney         | 3     |
-| United States    | Seattle        | 3     |
-| United States    | Houston        | 2     |
-| United States    | Palo Alto      | 2     |
-| United States    | San Jose       | 2     |
-| Switzerland      | Zurich         | 1     |
-| United States    | Mountain View  | 1     |
-| United States    | Nashville      | 1     |
-| United States    | Columbus       | 1     |
+See table below. The top ten cities were included by average. Note the relatively high average for the number of products ordered in Brno, Czechia. This is likely due a large order of a small, or cheap item, or a limited number of orders meaning that the average is sensitive to extreme values. In the case of Brno, it appears a single order was placed for 319 Journals, mean the average was simply divided by 1.  
+
+| Country         | City             | Average Number of Orders |
+|-----------------|------------------|---------------------------|
+| Czechia         | Brno             | 319                       |
+| Saudi Arabia    | Riyadh           | 319                       |
+| United States   | Rexburg          | 251                       |
+| Portugal        | Lisbon           | 189                       |
+| United States   | Sacramento       | 189                       |
+| Canada          | Sherbrooke       | 146                       |
+| Russia          | Saint Petersburg | 135                       |
+| Italy           | Rome             | 130                       |
+| United Arab Emirates | Dubai       | 112                       |
+| United States   | Kalamazoo        | 105                       |
 
 
 
@@ -78,23 +96,32 @@ See table below. Note the relatively high average for the number of products ord
 
 SQL Queries:
 ```sql
-SELECT
+SELECT 
 	country,
 	city,
 	product_category,
-	COUNT(product_category) AS cat_count
-FROM all_sessions_clean
-WHERE totaltransactionrevenue IS NOT NULL 
-GROUP BY country, city, product_category
-HAVING 
-	city IS NOT NULL 
-	AND product_category IS NOT NULL
-	AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
-ORDER BY cat_count DESC;
+	total_ordered
+FROM (
+    SELECT 
+        country,
+        city,
+        product_category,
+        SUM(total_ordered) AS total_ordered
+    FROM sales_by_sku_raw AS sbs
+    JOIN all_sessions_clean AS s
+        ON sbs.productsku = s.product_sku
+    WHERE city IS NOT NULL 
+		AND country IS NOT NULL
+		AND product_category IS NOT NULL
+		AND product_category NOT IN ('YouTube', 'Android', 'Google', 'Waze')
+		AND total_ordered > 0
+    GROUP BY country, city, product_category
+) AS subquery
+ORDER BY country, city, total_ordered DESC;
 ```
 Answer: 
 
-In the above query, only rows that have a totaltransactionrevenue are included as that indicates the order for the project was completed. In the output, Nest-USA has the highets number of total orders completed across all cities. With so few data-points per city, it is difficult to draw further conclusions. One, potential pattern can be seen in New York. Other than the Nest-USA transaction, all other transactions are apparel related. 
+In the above query, only rows that have some quantity of orders are include. Some trends that can be seen pertain to the larger cities. Popular categories in these cities are often Office or Drinkware. One can imagine that a business hub like a large city may have high demand for office supplies. The drinkware may be explained by the larger concentration of restuarants in the city. As smaller cities have smaller total order counts, it is difficult to discern any patterns. 
 
 **Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
 
