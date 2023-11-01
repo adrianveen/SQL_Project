@@ -126,7 +126,8 @@ Answer:
 
 In the above query, only rows that have some quantity of orders are include. Some trends that can be seen pertain to the larger cities. Popular categories in these cities are often Office or Drinkware. One can imagine that a business hub like a large city may have high demand for office supplies. The drinkware may be explained by the larger concentration of restuarants in the city. As smaller cities have smaller total order counts, it is difficult to discern any patterns. 
 
-**Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
+### Question 4
+**What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
 
 
 SQL Queries:
