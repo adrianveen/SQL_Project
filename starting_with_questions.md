@@ -128,7 +128,7 @@ ORDER BY country, city, sum_of_units DESC
 ```
 Answer: 
 
-In the above query, rows where there is a visitor ID tied to an order are included. NULL citys, and product_categories are excluded. Also product categories that match a tech company name are excluded as they encompass a wide range of products. A pattern that can be seen is that the most popular item for most cities is often farm more popular than any other item. This could imply singular large orders were executed, which would skew the averages. 
+In the above query, rows where there is a visitor ID tied to an order are included. Cities and Product Categories that are `NULL` are excluded. Also product categories that match a tech company name are excluded as they encompass a wide range of products. A pattern that can be seen is that the most popular item for most cities is often far more popular than any other item. This could imply singular large orders were executed, which would skew the averages. 
 
 ### Question 4
 **What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
