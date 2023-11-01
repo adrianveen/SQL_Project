@@ -127,7 +127,32 @@ In the above query, only rows that have some quantity of orders are include. Som
 
 
 SQL Queries:
-
+```sql
+WITH orders_ranked AS (
+		SELECT
+			s.country,
+			s.city,
+			s.product_name,
+			sk.total_ordered,
+			RANK () OVER (PARTITION BY city ORDER BY sk.total_ordered DESC) AS quantity_rank
+		FROM all_sessions_clean AS s
+		JOIN sales_by_sku_raw AS sk
+			ON s.product_sku = sk.productsku
+		WHERE city IS NOT NULL AND country IS NOT NULL
+		GROUP BY s.country, s.city, s.product_name, sk.total_ordered
+		ORDER BY s.country, s.city, quantity_rank
+	)
+	
+SELECT
+	country,
+	city,
+	product_name,
+	total_ordered,
+	quantity_rank
+FROM orders_ranked
+WHERE quantity_rank = 1
+ORDER BY country,city,quantity_rank;
+```
 
 
 Answer:
