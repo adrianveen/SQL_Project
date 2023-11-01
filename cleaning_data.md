@@ -54,6 +54,7 @@ UPDATE products_clean
 SET
 	product_name = 'Dog Frisbee'
 WHERE product_name LIKE '7%Dog Frisbee';
+
 -- Validation of all product_name changes
 SELECT product_name, product_sku FROM products_clean GROUP BY product_name, product_sku ORDER BY product_name;
 
@@ -158,6 +159,7 @@ UPDATE all_sessions_clean
 SET
 	productprice = ROUND(productprice/1000000, 2)
 ;
+
 -- Total Transaction Revenue
 SELECT ROUND(totaltransactionrevenue/1000000,2)
 FROM all_sessions_clean
@@ -168,8 +170,7 @@ SET
 	totaltransactionrevenue = ROUND(totaltransactionrevenue/1000000,2)
 ;
 
-
--- Validation for both
+-- Validation for both dollar amounts
 SELECT productprice, totaltransactionrevenue
 FROM all_sessions_clean
 WHERE totaltransactionrevenue > 0;
@@ -194,10 +195,11 @@ GROUP BY date
 UPDATE all_sessions_clean
 SET
 	v2productname = REGEXP_REPLACE(v2productname, '(\s*(Google|Android|YouTube|You Tube|Waze)\s*)','', 'g');
+
 -- Validation
 SELECT v2productname, COUNT(*) FROM all_sessions_clean GROUP BY v2productname ORDER BY v2productname;
 
--- Manual product name consolidation or fixes
+-- Manual product name consolidation or fixes for items that bypassed the above query
 UPDATE all_sessions_clean
 SET
 	v2productname = '16 oz. Hot and Cold Tumbler'
@@ -314,7 +316,7 @@ INSERT INTO analytics_clean
 SELECT *
 FROM analytics_raw;
 
--- compressed version of analytics_raw with unit price removed
+-- Compressed version of analytics_raw with unit price removed
 SELECT * FROM analytics_clean
 GROUP BY visitnumber,
 	visitid,
@@ -353,7 +355,7 @@ CREATE TEMP TABLE analytics_temp (
 	revenue NUMERIC
 );
 
--- validate temp table
+-- Validate temp table
 SELECT * FROM analytics_temp;
 
 INSERT INTO analytics_temp
@@ -397,15 +399,12 @@ ALTER TABLE analytics_clean
 ALTER COLUMN visitstarttime SET DATA TYPE TIME
 USING visitstarttime::TIME;
 
-
 -- Updating Date to be a date format
-
 ALTER TABLE analytics_clean
 ALTER COLUMN date SET DATA TYPE date
 USING TO_DATE(date, 'YYYYMMDD');
 
 -- Set -ve values in units sold to positive
-
 UPDATE analytics_clean
 SET
 	units_sold = ABS(units_sold)
@@ -415,7 +414,6 @@ WHERE units_sold < 0;
 SELECT units_sold FROM analytics_clean GROUP BY units_sold ORDER BY units_sold;
 
 -- Change time on site to an interval in HH:MM:SS - no negative values to remove
-
 ALTER TABLE analytics_clean
 ALTER COLUMN timeonsite SET DATA TYPE interval
 USING MAKE_INTERVAL(secs => timeonsite);
