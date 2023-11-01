@@ -12,7 +12,7 @@ Queries:
 ## Table of Contents
 1. [Cleaning the Products table](#header-1)
 2. [Cleaning the All Sessions Table](#header-2)
-3. [Cleaning the Analytics table](#header-3)
+3. [Cleaning the Analytics table](#cleaning-the-all-sessions-table)
 4. [Cleaning the Sales by SKU table](#header-4)
 5. [Cleaning the Sales Report table](#header-5)
 
