@@ -12,9 +12,9 @@ Queries:
 ## Table of Contents
 1. [Cleaning the Products table](#cleaning-the-products-table)
 2. [Cleaning the All Sessions Table](#cleaning-the-all-sessions-table)
-3. [Cleaning the Analytics table](#cleaning-the-all-sessions-table)
-4. [Cleaning the Sales by SKU table](#header-4)
-5. [Cleaning the Sales Report table](#header-5)
+3. [Cleaning the Analytics table](#cleaning-the-analytics-table)
+4. [Cleaning the Sales by SKU table](#cleaning-the-sale-by-sku-table)
+5. [Cleaning the Sales Report table](#cleaning-the-sales-report-table)
 
 
 ## Cleaning the Products table
@@ -449,3 +449,6 @@ SELECT
 FROM analytics_clean
 GROUP BY visitid
 ```
+## Cleaning the Sales by SKU table
+
+## Cleaning the Sales Report table
