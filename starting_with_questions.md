@@ -72,7 +72,7 @@ WHERE city = 'Brno';
 
 Answer:
 
-See table below. The top ten cities were included by average. Note the relatively high average for the number of products ordered in Brno, Czechia. This is likely due a large order of a small, or cheap item, or a limited number of orders meaning that the average is sensitive to extreme values. In the case of Brno, it appears a single order was placed for 319 Journals, mean the average was simply divided by 1.  
+See table below. The top ten cities by average were included here as a sample. Note the relatively high average for the number of products ordered in Brno, Czechia. This is likely due a large order of a small, or cheap item, or a limited number of orders meaning that the average is sensitive to extreme values. In the case of Brno, it appears a single order was placed for 319 Journals, mean the average was simply divided by 1.  
 
 | Country         | City             | Average Number of Orders |
 |-----------------|------------------|---------------------------|
