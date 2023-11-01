@@ -450,7 +450,28 @@ FROM analytics_clean
 GROUP BY visitid
 ```
 ## Cleaning the Sales by SKU table
+```sql
+-- Sales by SKU Cleanup
+SELECT * FROM sales_by_sku_clean
 
+-- Table setup
+INSERT INTO sales_by_sku_clean
+SELECT * FROM sales_by_sku_raw
+
+-- Remove unused SKUs per other tables
+DELETE FROM sales_by_sku_clean
+WHERE product_sku NOT LIKE 'GG%'
+
+-- Validation of SKUs
+-- Check that format is similar
+-- Check that SKUs are unique
+SELECT * FROM sales_by_sku_clean
+WHERE product_sku NOT LIKE 'GG%'
+
+-- both queries give the same value
+SELECT COUNT(DISTINCT product_sku) FROM sales_by_sku_clean;
+SELECT COUNT(*) FROM sales_by_sku_clean;
+```
 ## Cleaning the Sales Report table
 ```sql
 -- Sales Report Cleanup
