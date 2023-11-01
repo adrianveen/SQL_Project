@@ -5,6 +5,7 @@ See comments in SQL code blocks for more details. In general, the following item
 - correctly formatting dollar amounts
 - removing duplicate product or sku value, or unused sku values
 - cleaning up the product name and category name to remove additional characters or prefixes/additional words
+- dropping unused columns (ie. all NULL) or columns with insignificant values
 
 Queries:
 
