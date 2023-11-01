@@ -13,7 +13,7 @@ Queries:
 1. [Cleaning the Products table](#cleaning-the-products-table)
 2. [Cleaning the All Sessions Table](#cleaning-the-all-sessions-table)
 3. [Cleaning the Analytics table](#cleaning-the-analytics-table)
-4. [Cleaning the Sales by SKU table](#cleaning-the-sale-by-sku-table)
+4. [Cleaning the Sales by SKU table](#cleaning-the-sales-by-sku-table)
 5. [Cleaning the Sales Report table](#cleaning-the-sales-report-table)
 
 
