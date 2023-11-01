@@ -33,7 +33,7 @@ Answer: Top 5 Cities and countries:
 4. Palo Alto, United States
 5. Tel Aviv-Yafo, Israel
 
-The (Country, City) pair with the highest total revenue was the United States but with the city listed as "not available in demo dataset" and was therefore excluded, as it may be spread across many different cities. 
+NULL values were excluded in this calculation, however, it is important to note that the sum of transaction revenues with City listed as NULL was greater than any city that did have a value in the the city column. 
 
 
 ### Question 2
