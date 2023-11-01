@@ -452,3 +452,66 @@ GROUP BY visitid
 ## Cleaning the Sales by SKU table
 
 ## Cleaning the Sales Report table
+```sql
+-- Sales Report Cleanup
+SELECT * FROM sales_report_clean
+
+-- Table Setup
+-- Renamed columsn during table creation
+INSERT INTO sales_report_clean
+SELECT * FROM sales_report_raw;
+
+-- Drop incorrect SKUs
+DELETE FROM sales_report_clean
+WHERE product_sku NOT LIKE 'GG%';
+
+-- Validation of SKUS - returns no rows
+SELECT * FROM sales_report_clean WHERE product_sku NOT LIKE 'GG%';
+
+-- Update Product Names
+UPDATE sales_report_clean
+SET
+	product_name = TRIM(BOTH ' ' FROM REGEXP_REPLACE(product_name, '\s*(Google|Android|YouTube|You Tube|Waze)\s*','', 'g'));
+
+-- Manual product_name consolidation or fixes
+UPDATE sales_report_clean
+SET
+	product_name = '16 oz. Hot and Cold Tumbler'
+WHERE product_name = '16 oz. Hot/Cold Tumbler';
+
+UPDATE sales_report_clean
+SET
+	product_name = 'Baby Essentials Set'
+WHERE product_name = 'Baby Essentials Baby Set';
+
+UPDATE sales_report_clean
+SET
+	product_name = 'Engraved Ceramic Mug'
+WHERE product_name = 'Engraved CeramicMug';
+
+UPDATE sales_report_clean
+SET
+	product_name = 'Micro Wireless Earbuds'
+WHERE product_name = 'Micro Wireless Earbud';
+
+UPDATE sales_report_clean
+SET
+	product_name = 'Dog Frisbee'
+WHERE product_name LIKE '7%Dog Frisbee';
+
+--Validation of name changes
+SELECT * FROM sales_report_clean ORDER BY product_sku;
+
+-- Update ratio formatting
+UPDATE sales_report_clean
+SET
+	ordered_stock_ratio = ROUND(ordered_stock_ratio, 5);
+
+UPDATE sales_report_clean
+SET
+	ordered_stock_ratio = 0
+WHERE ordered_stock_ratio IS NULL
+
+-- Validation - ensures smallest non 0 ratio has at least 2 digits
+SELECT * FROM sales_report_clean WHERE ordered_stock_ratio > 0 ORDER BY ordered_stock_ratio LIMIT 5;
+```
