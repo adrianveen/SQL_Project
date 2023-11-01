@@ -56,3 +56,12 @@ Validating changes made to product names and SKUs
 ```sql
 SELECT product_name, product_sku FROM products_clean GROUP BY product_name, product_sku ORDER BY product_name;
 ```
+Checking the changes to SKU to ensure only unique values remain. Both of the following queries should return the same value
+```sql
+SELECT COUNT(DISTINCT product_sku) FROM sales_by_sku_clean;
+SELECT COUNT(*) FROM sales_by_sku_clean;
+```
+```sql
+-- Validation - ensures smallest non 0 ratio has at least 2 digits
+SELECT * FROM sales_report_clean WHERE ordered_stock_ratio > 0 ORDER BY ordered_stock_ratio LIMIT 5
+```
