@@ -223,8 +223,11 @@ Answer:
 
 The 1st query lists the percent of the total revenue that each city is responsible for. The average contribution is 4% of the total revenue (see second query). From the first query, we see the maximum contribution is 31.65% and the minimum contribution is 0.06% of the total revenue. This set of percentages has a standard deviation of 6.7 and a variance of 45.5.
 
-
-
-
-
-
+The table below shoes the top 5 of 25 cities based on their percent share of the total revenue. 
+| Country         | City           | Revenue Impact |
+|-----------------|----------------|----------------|
+| United States   | Mountain View  | 31.65          |
+| United States   | San Bruno      | 13.95          |
+| United States   | New York       | 10.40          |
+| United States   | Sunnyvale      | 9.98           |
+| United States   | Kirkland       | 3.67           |
