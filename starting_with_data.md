@@ -1,4 +1,4 @@
-Question 1: What is the percentage of revenue that originated from each different channelgrouping?
+## Question 1: What is the percentage of revenue that originated from each different channelgrouping?
 
 SQL Queries:
 ```sql
@@ -33,7 +33,7 @@ Channel grouping and their percent of the total revenue:
 
 
 
-Question 2: Which product categories generate the most revenue?
+## Question 2: Which product categories generate the most revenue?
 
 SQL Queries:
 ```sql
@@ -62,7 +62,7 @@ Top 5 categories by total revenue:
 
 
 
-Question 3: Which hours of the day result in the highest number of products sold by units sold? 
+## Question 3: Which hours of the day result in the highest number of products sold by units sold? 
 
 SQL Queries: 
 Top 5 hours of the day by units sold
