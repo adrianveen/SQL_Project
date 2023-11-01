@@ -221,7 +221,7 @@ FROM city_rev
 
 Answer:
 
-The above query lists the percent of the total revenue that each city is responsible for. The average contribution is 4% of the total revenue (see second query). From the first query, we see the maximum contribution is 31.65% and the minimum contribution is 0.06% of the total revenue. This set of percentages has a standard deviation of 6.7 and a variance of 45.5.
+The 1st query lists the percent of the total revenue that each city is responsible for. The average contribution is 4% of the total revenue (see second query). From the first query, we see the maximum contribution is 31.65% and the minimum contribution is 0.06% of the total revenue. This set of percentages has a standard deviation of 6.7 and a variance of 45.5.
 
 
 
