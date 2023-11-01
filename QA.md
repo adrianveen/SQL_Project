@@ -1,7 +1,7 @@
-What are your risk areas? Identify and describe them.
+## What are your risk areas? Identify and describe them.
 Due to lack of time, this will cover the QA process in theory. The SQL queries are a sample of what is included in cleaning_data.md.
 
-QA concers with the ecommerce data set:
+**QA concers with the ecommerce data set:**
 - duplicate rows, particularly with values that are used as a unique identifier
   - product SKU
   - full visitor id
