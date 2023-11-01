@@ -1,7 +1,8 @@
 Answer the following questions and provide the SQL queries used to find the answer.
 
     
-**Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
+### Question 1
+**Which cities and countries have the highest level of transaction revenues on the site?**
 
 
 SQL Queries:
@@ -29,7 +30,8 @@ Answer: Top 5 Cities and countries:
 The (Country, City) pair with the highest total revenue was the United States but with the city listed as "not available in demo dataset" and was therefore excluded, as it may be spread across many different cities. 
 
 
-**Question 2: What is the average number of products ordered from visitors in each city and country?**
+### Question 2
+**What is the average number of products ordered from visitors in each city and country?**
 
 
 SQL Queries:
@@ -91,7 +93,8 @@ See table below. The top ten cities by average were included here as a sample. N
 
 
 
-**Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
+### Question 3
+**Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
 
 
 SQL Queries:
@@ -161,7 +164,8 @@ Answer:
 
 
 
-**Question 5: Can we summarize the impact of revenue generated from each city/country?**
+### Question 5
+**Can we summarize the impact of revenue generated from each city/country?**
 
 SQL Queries:
 
